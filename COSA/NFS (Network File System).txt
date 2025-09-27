@@ -1,0 +1,18 @@
+NFS (Network File System)
+
+- It is a protocol used in distributed file system that allows a computer to access the file over aa network in a similar way it accesses local storage.
+
+- NFS was originally developed by Sun Microsystems in 1984.
+
+- NFS allows the clients to Mount the File system and use it like a local storage.
+
+
+Why NFS?
+
+- File sharing across systems.
+- Centralized file Management
+- Cross-platform access
+- Simple File Administration
+- Reduced Local Storage requirements.
+
+NFS typically uses port 2049

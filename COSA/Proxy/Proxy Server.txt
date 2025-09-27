@@ -1,0 +1,26 @@
+Proxy Server
+	Proxy server is a system or router that provides a gateway between users and the internet.
+	(intermediary between user and internet)
+	Forward Proxy
+		User(clients) -> Proxy Server -> Internet
+		Why we use Forward Proxy?
+			- Anonymity and privacy
+			- Access Control
+			- Bypassing Geo-Restrictions
+			- Caching
+			- Security Monitoring
+			ex. Squid, CCProxy, Privoxy, FoxyProxy, TinyProxy, Tor......etc etc...
+	Reverse Proxy
+		Traffic is coming from Internet
+		Internet -> Proxy Server -> Servers (web)
+		Why we use Reverse Proxy?
+			- Load Balancing
+			- Security (by Hiding the actual IP)
+			- caching
+			- GSLB (Global Server Load Balancing)
+			- Access Control and Authentication
+			- Application Firewall
+			ex. nginx, HAProxy, AWS ELB, squid
+
+	
+

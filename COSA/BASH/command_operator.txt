@@ -1,0 +1,8 @@
+&& 	-> If the first command executed successfully then only second command will get executed.
+
+|| 	-> If the first command fails, then only second command will get executed.
+
+;	-> Executes all commands sequentially, regardless of whether the previous commands succeeded or failed.
+
+
+| 	-> output of first command will be passed as an input to another command.

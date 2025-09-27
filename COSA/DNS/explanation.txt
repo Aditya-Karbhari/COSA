@@ -1,0 +1,41 @@
+$TTL    604800
+==
+TTL -> Time to Live (604800 ~ 7 DAYS)
+Default DNS Servers -> DNS records are cached by servers for 7 days.
+
+=======================================
+@       IN      SOA     localhost. root.localhost. (
+
+
+
+
+@ -> Zone Origin
+IN -> Internet Class      // CH -> Chaos (used historically) //HS -> Hesiod (rarely Used)
+
+SOA -> Start of Authority
+
+localhost. -> Primary DNS server name (with a trailing dot = FQDN)
+
+root.localhost. -> Email of the domain admin (root. replaced with @
+		-> root@localhost
+
+( -> starts here
+
+Field		Value			Explanation
+serial		2       ; Serial	Incremented Zone File changes
+refresh		604800  ; Refresh	Time (seconds) for refresh
+retry		84600   ; Retry		Retry time on failure
+expire		2419200 ; Expire	When the zone data expires
+Minimum TTL	604800 ); Minimum TTL	Data hold
+
+
+
+=====================================
+@ IN NS localhost.
+NS -> Name Server Record -> specifies "localhost." -> authoritative name server for this zone.
+
+
+localhost. IN A 127.0.0.1
+
+
+

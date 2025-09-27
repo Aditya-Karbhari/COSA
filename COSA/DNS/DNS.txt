@@ -1,0 +1,98 @@
+SERVER
+=======
+1. update the package list
+
++  sudo apt update
+
+2. Install bind9 in your server
+
++ sudo apt install bind9 
+
+3. Install bind9-dnsutils (to run nslookup)
+
++ sudo apt install bind9-dnsutils
+
+4. OPTIONAL (if you want the documentation then install bind9-doc)
++ sudo apt install bind9-doc
+
+[[[[[ sudo apt update && sudo apt install bind9 bind9-dnsutils bind9-doc
+ ]]]]
+
+5. modify /etc/resolv.conf [ Linux -> DNS settings for name resolution ]
+
+nameserver SERVER_IP
+ex.
+	nameserver 192.168.25.100
+	nameserver 192.168.0.1
+
+6. When we restart networking (resolv.conf changes automatically). so we want to make it immutable
+
++ sudo chattr +i /etc/resolv.conf
+
+(in case if you want to remove the attribute - chattr -i /etc/resolv.conf)
+
+==================SERVER -> DNS QUERY ->???? ===============
+
+#FORWARD ZONE (Forward lookup)
+localhost -> 127.0.0.1
+
+#Reverse Zone  (Reverse Lookup)
+127.0.0.1 -> localhost
+
+
+==================================Configuration======================
+/etc/bind/db.local - forward zone
+/etc/bind/db.127	-Reverse Zone
+/etc/named.conf.local 	-> zones create (forward as well as reverse)
+
+===========================Configuration Check====================
+named-checkconf     [Check Configuration File]
+named-checkzone ZONENAME FILE [Check Zone files] Forward as well as reverse
+
+=======================Verify=================
+nslookup
+Check for forward and reverse lookup
+===============================================
+
+apt install apache2 curl -y
+
+index.html -> welcome to cdac
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+==================================Configuration [ cdac.local ]======================
+/etc/bind/db.cdac - forward zone
+/etc/bind/db.reverse	-Reverse Zone
+/etc/named.conf.local 	-> zones create (forward as well as reverse)
+
+===========================Configuration Check====================
+named-checkconf     [Check Configuration File]
+named-checkzone ZONENAME FILE [Check Zone files] Forward as well as reverse
+
+=======================Verify=================
+nslookup
+Check for forward and reverse lookup
+===============================================
+
+apt install apache2 curl -y
+
+index.html -> welcome to cdac
+
+curl cdac.local
+===================================================
+
+_______________________CLIENT VERIFICATION__________________
+
+sudo apt install bind9-dnsutils curl
+
+nslookup
+ping
+curl 
+
+
+
+
+
+
+
+
+

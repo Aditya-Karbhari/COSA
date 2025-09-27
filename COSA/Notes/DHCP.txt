@@ -1,0 +1,63 @@
+DHCP - Dynamic Host Configuration Protocol 
+
+- DHCP is a network protocol used to automatically assign and manage IP addresses and other network configuration settings to devices on a network. 
+
+- It simplifies the process of Network Administration by dynamically allocating IP addresses to devices.
+
+- It ensures that each device has a unique address and preventing conflicts.
+
+
+DHCP Client Initialization
+
+(Discover)
+- When a device (DHCP Client) connects to a network, it typically doesn't have a preconfigured IP address.
+
+- The client sends out a DHCP (DISCOVERy) Broadcast message on the local subnet to discover DHCP Servers.
+
+- This is done using UDP with a source port of 68
+and a destination port of 67.
+
+
+- DHCP Servers on the network receive the broadcasted DHCP discovery message.
+
+- If there is more than one DHCP server, the client may receive multiple offers, but it will typically choose the first offer it receives.
+
+Server Offer
+- DHCP Server that receives the discovery message responds with a DHCP offer.
+
+This offer includes an IP Address, subnet mask, lease duration and other configuration parameters like default gateway and DNS servers.
+
+DHCP Client Request
+DHCP client receive the offer(s) and selects one based on its preferences and criteria.
+The client then sends a DHCP request to the chosen DHCP server to formally request the offered configuration.
+
+
+DHCP Server Acknowledgement
+- The DHCP server that receives the request check the XID to verify that it matches the offer it sent.
+
+- If the Transaction ID matches, the server acknowledges the request by sending a DHCP ACK message to the client.
+
+- ACK message confirms that the IP address and other configuration settings have been assigned to the client
+
+- The client now has a valid IP address and can use it to communicate on the network.
+
+
+LEASE MANAGEMENT
+ - DHCP server typically assigns IP addresses with a lease duration. This lease specifies how long the client can use the assigned IP address.
+- as the lease approaches its expiration, the client can choose to renew the lease by requesting the same IP address from the DHCP server. If the server grants the renewal, the client continues using the IP address.
+
+- If the lease expires without renewal, the IP address is released back into the available pool, and the client must repeat the DHCP process to obtain a new IP address.
+
+
+- DHCP client can release its IP address voluntarily if it no longer needs it or is leaving the network.
+
+- The server can also send a DHCP decline message if it detects that the offered IP address is already in use on the network.
+
+
+
+DHCP simplifies network configuration by automating the assignment of IP addresses and related parameters, making it easier to manage and scale networks.
+
+
+
+
+

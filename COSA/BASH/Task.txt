@@ -1,0 +1,12 @@
+1. Write a script to find the entered number is even or ordd.
+2. Write a script to print these details.	
+	a. MAC Address
+	b. IP Address
+	c. Hostname
+	d. Loggedin Username
+3. Write a script to check that if the file exists or not? (if exists print the content of the file
+4. Write a script to check that website is available or not?
+	(Hint. use the curl command if you get status code 200 then consider website is running)
+	(Hint2. curl -o /dev/null -s -w "%{http_code}" URL)
+5. write a script to check the service is running or not. If it's not running start the service.
+

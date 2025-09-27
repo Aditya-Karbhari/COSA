@@ -1,0 +1,29 @@
+Disk Attach
+Zeroized Attached Disk
+sudo dd if=/dev/zero | pv | sudo dd of=/dev/sdb
+
+Check
+xxd -a /dev/sdb
+
+Disk Partition
+Format
+Ready to use disk ..
+Mount (/mnt/disk)
+	Data Copy ----->> Disk(mount point)
+	Data delete
+
+Disk Image Create (bitstream copy)
+sudo dd if=/dev/sdb | pv | dd of=/home/star/evidence.img
+
+Hash Value Count
+1. HDD -> /dev/sdb
+2. evidence -> evidence.img
+
+
+Value -> same
+
+Extract
+evidence.img
+
+After Extract -> evidence.img -> hash
+Again Same....

@@ -1,0 +1,13 @@
+#Caching
+
+cache_dir ufs /var/spool/squid 100 16 256
+maximum_object_size 4096 KB
+
+
+
+#To Block Specified Domain Names
+acl block dstdomain "/etc/squid/deny.txt"
+http_access deny block
+
+# To allow the access
+http_access allow all

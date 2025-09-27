@@ -1,0 +1,23 @@
+VNC (Virtual Network Computing)
+
+It uses RFB protocol (Remote Frame Buffer)
+port -> 590x
+
+
+===========
+sudo apt update
+
+sudo apt install -y tigervnc-standalone-server xfce4 xfce4-goodies dbus-x11 xauth xfonts-base
+
+vncpasswd
+
+vncserver -localhost no
+
+================
+[if you don't mention -localhost no  ==> it will allow display through SSH tunnel ]
+[for the security you can create a tunnel and use the display]
+[don't trust this solution over the internet]
+
+UltraVNC -> Enter Server IP -> Enter Password.
+
+

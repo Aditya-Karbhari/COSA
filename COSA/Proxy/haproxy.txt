@@ -1,0 +1,15 @@
+Server
+
+1. haproxy install
+2. Backup harpoxy configuration file
+3. Configure the HAproxy
+
+
+frontend http_front
+        bind *:80
+        default_backend http_back
+
+backend http_back
+        balance roundrobin
+        server s1 192.168.56.106:80 check
+        server s2 192.168.56.107:80 check

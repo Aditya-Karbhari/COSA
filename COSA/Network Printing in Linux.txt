@@ -1,0 +1,17 @@
+Common Unix Printing System (CUPS)
+
+sudo apt install cups
+
+sudo nano /etc/cups/cupsd.conf
+localhost -> 0.0.0.0
+
+sudo usermod $USER -aG lpadmin
+
+sudo systemctl restart cups
+
+Browser -> localhost:631
+
+List printers -> "lpstat -a"
+lp - print files
+
+

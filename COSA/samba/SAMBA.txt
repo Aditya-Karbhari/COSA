@@ -1,0 +1,67 @@
+# SAMBA
+
+1. Server
+
+sudo apt install samba
+
+ex. we are talking about 'star' user 
+
+User -> Add to samba group and should have password
+
+sudo smbpasswd -a USERNAME
+
+#
+Let's assume we want to share 
+/home/star
+
+
+---
+/etc/samba/smb.conf
+
+
+[SHARE_NAME]
+    comment = ANY COMMENT
+    path = ABSOLUTE_PATH_DIRECTORY	
+    read only = no
+    guest ok = no
+    valid users = USERNAME
+
+
+[star]
+    comment = nothing to say
+    path = /home/star
+    read only = no
+    guest ok = no
+    valid users = star
+
+
+
+sudo systemctl restart smb
+
+
+
+==========================Windows======================
+open command prompt
+--
+net use
+---
+
+if you want to delete an entry
+
+net use \\192.168.x.x\star /delete
+
+
+
+
+
+
+
+===============================================
+SAMBA -> Create a user tinku
+assign nologin shell
+then add the user to sambagroup
+
+Assign access of SMB to tinku
+
+in this case, tinku will not be able to login inside system. But tinku has the access to SMB shared folder.
+

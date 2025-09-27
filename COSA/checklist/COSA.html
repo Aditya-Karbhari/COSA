@@ -1,0 +1,2635 @@
+
+				<!DOCTYPE html>
+				<html>
+					<head>
+						<meta charset="UTF-8">
+						<meta name="viewport" content="width=device-width, initial-scale=1" />
+						<link rel="stylesheet" href="pluginAssets/highlight.js/atom-one-light.css">
+						<title>COSA</title>
+					</head>
+					<body>
+						<div class="exported-note"><div class="exported-note-title">COSA</div>
+
+<style>
+		/* https://necolas.github.io/normalize.css/ */
+		html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}
+		article,aside,footer,header,nav,section{display:block}h1{font-size:2em;margin:.67em 0}hr{box-sizing:content-box;height:0;overflow:visible}
+		pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent;-webkit-text-decoration-skip:objects}
+		b,strong{font-weight:bolder}small{font-size:80%}img{border-style:none}
+
+		body {
+			font-size: 15px;
+			color: #32373F;
+			word-wrap: break-word;
+			line-height: 1.6em;
+			background-color: #ffffff;
+			font-family: 'Avenir Next', 'Avenir', 'Arial', sans-serif;
+			padding-bottom: 0px;
+			padding-top: 0px;
+		}
+		kbd {
+			border: 1px solid rgb(220, 220, 220);
+			box-shadow: inset 0 -1px 0 rgb(220, 220, 220);
+			padding: 2px 4px;
+			border-radius: 3px;
+			background-color: rgb(243, 243, 243);
+		}
+
+		:root {
+			--scrollbar-size: 7px;
+		}
+
+		::-webkit-scrollbar {
+			width: var(--scrollbar-size);
+			height: var(--scrollbar-size);
+		}
+		::-webkit-scrollbar-thumb {
+			border-radius: calc(var(--scrollbar-size) / 2);
+		}
+		::-webkit-scrollbar-corner {
+			background: none;
+		}
+		::-webkit-scrollbar-track {
+			border: none;
+		}
+		::-webkit-scrollbar-thumb {
+			background: rgba(50, 55, 63, 0.54); 
+		}
+		::-webkit-scrollbar-track:hover {
+			background: rgba(0, 0, 0, 0.1); 
+		}
+		::-webkit-scrollbar-thumb:hover {
+			background: rgba(50, 55, 63, 0.63); 
+		}
+
+		
+
+		/* Remove top padding and margin from first child so that top of rendered text is aligned to top of text editor text */
+
+		#rendered-md > h1:first-child,
+		#rendered-md > h2:first-child,
+		#rendered-md > h3:first-child,
+		#rendered-md > h4:first-child,
+		#rendered-md > ul:first-child,
+		#rendered-md > ol:first-child,
+		#rendered-md > table:first-child,
+		#rendered-md > blockquote:first-child,
+		#rendered-md > img:first-child,
+		#rendered-md > p:first-child {
+			margin-top: 0;
+			padding-top: 0;
+		}
+		
+		p, h1, h2, h3, h4, h5, h6, ul, table {
+			margin-top: .6em;
+			margin-bottom: 1.35em;
+
+			/*
+				Adds support for RTL text in the note body. It automatically detects the direction using the content.
+				Issue: https://github.com/laurent22/joplin/issues/3991
+			*/
+			unicode-bidi: plaintext;
+		}
+
+		h1, h2, h3, h4, h5, h6, ul, table {
+			margin-bottom: 0.65em;
+		}
+
+		h1, h2, h3, h4, h5, h6 {
+			line-height: 1.5em;
+		}
+		h1 {
+			font-size: 1.5em;
+			font-weight: bold;
+			border-bottom: 1px solid #dddddd;
+			padding-bottom: .3em;
+		}
+		h2 {
+			font-size: 1.3em;
+			font-weight: bold;
+			padding-bottom: .1em; */
+		}
+		h3 {
+			font-size: 1.1em;
+			font-weight: bold;
+		}
+		h4, h5, h6 {
+			font-size: 1em;
+			font-weight: bold;
+		}
+
+		.exported-note-title {
+			font-size: 2em;
+			font-weight: bold;
+			margin-bottom: 0.8em;
+			line-height: 1.5em;
+			padding-bottom: .35em;
+			border-bottom: 1px solid #dddddd;
+		}
+
+		a {
+			color: #155BDA;
+		}
+		ul, ol {
+			padding-left: 0;
+			margin-left: 1.7em;
+		}
+		li {
+			margin-bottom: .4em;
+		}
+		li p {
+			margin-top: 0.2em;
+			margin-bottom: 0;
+		}
+
+		dt {
+			font-weight: bold;
+			margin-bottom: 0.25em;
+		}
+
+		dd {
+			margin-inline-start: 2.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.resource-icon {
+			display: inline-block;
+			position: relative;
+			top: 0.3em;
+			text-decoration: none;
+			width: 1.2em;
+			height: 1.4em;
+			margin-right: 0.4em;
+			background-color:  #155BDA;
+		}
+    /* These icons are obtained from the wonderful ForkAwesome project by copying the src svgs 
+     * into the css classes below.
+     * svgs are obtained from https://github.com/ForkAwesome/Fork-Awesome/tree/master/src/icons/svg
+     * instead of the svg width, height property you must use a viewbox here, 0 0 1536 1792 is typically the actual size of the icon
+     * each line begins with the pre-amble -webkit-mask: url("data:image/svg+xml;utf8,
+     * and of course finishes with ");
+     * to prevent artifacts it is also necessary to include -webkit-mask-repeat: no-repeat;
+     * on the following line
+     * */
+		.fa-joplin {
+			/* Awesome Font file */
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M373.834 128C168.227 128 0 296.223 0 501.834v788.336C0 1495.778 168.227 1664 373.834 1664h788.336c205.608 0 373.83-168.222 373.83-373.83V501.834C1536 296.224 1367.778 128 1162.17 128zm397.222 205.431h417.424a7.132 7.132 0 0 1 7.132 7.133v132.552c0 4.461-3.619 8.073-8.077 8.073h-57.23c-24.168 0-43.768 19.338-44.284 43.374v2.377h-.017v136.191h-.053l-.466 509.375c-5.02 77.667-39.222 149.056-96.324 201.046-60.28 54.834-141.948 85.017-229.962 85.017-12.45 0-25.208-.61-37.907-1.785-92.157-8.682-181.494-48.601-251.662-112.438-71.99-65.517-117.147-150.03-127.164-238-11.226-98.763 23.42-192.783 95.045-257.937 81.99-74.637 198.185-101.768 316.613-75.704 5.574 1.227 9.55 6.282 9.55 11.997v199.52c-.199 2.625-1.481 6.599-8.183 2.896-.663-.365-1.194-.511-1.653-.531-21.987-10.587-45.159-17.57-68.559-19.916-.38-.04-.757-.124-1.138-.163-.537-.048-1.034-.033-1.556-.075-4.13-.354-8.183-.517-12.203-.58-.87-.011-1.771-.127-2.641-.127-.486 0-.951.05-1.437.057-1.464.011-2.886.115-4.33.163-2.76.102-5.497.211-8.182.448-.273.024-.547.07-.835.097-25.509 2.4-47.864 11.104-65.012 25.47-.954.802-1.974 1.53-2.9 2.36a1.34 1.34 0 0 1-.168.146c-23.96 21.8-34.881 53.872-30.726 90.316 4.62 40.737 26.94 81.156 62.841 113.823 35.908 32.67 80.335 52.977 125.113 57.186 35.118 3.36 66.547-3.919 89.899-20.461a97.255 97.255 0 0 0 9.365-7.501c2.925-2.661 5.569-5.5 8.086-8.416.3-.348.672-.673.975-1.024 8.253-9.864 14.222-21.067 17.996-33.148.639-2.034 1.051-4.148 1.564-6.227.381-1.563.81-3.106 1.112-4.693.555-2.784.923-5.632 1.253-8.49.086-.709.183-1.414.237-2.128.492-4.893.693-9.858.55-14.91h.013V521.623c-2.01-22.626-20.78-40.434-43.928-40.434h-57.23a8.071 8.071 0 0 1-8.077-8.073V340.564a7.132 7.132 0 0 1 7.136-7.133z'/></svg>");
+		}
+		.fa-file-image {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zm-128-448v320H256v-192l192-192 128 128 384-384zm-832-192c-106 0-192-86-192-192s86-192 192-192 192 86 192 192-86 192-192 192z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-pdf {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zm-514-593c25 20 53 38 84 56 42-5 81-7 117-7 67 0 152 8 177 49 7 10 13 28 2 52-1 1-2 3-3 4v1c-3 18-18 38-71 38-64 0-161-29-245-73-139 15-285 46-392 83-103 176-182 262-242 262-10 0-19-2-28-7l-24-12c-3-1-4-3-6-5-5-5-9-16-6-36 10-46 64-123 188-188 8-5 18-2 23 6 1 1 2 3 2 4 31-51 67-116 107-197 45-90 80-178 104-262-32-109-42-221-24-287 7-25 22-40 42-40h22c15 0 27 5 35 15 12 14 15 36 9 68-1 3-2 6-4 8 1 3 1 5 1 8v30c-1 63-2 123-14 192 35 105 87 190 146 238zm-576 411c30-14 73-57 137-158-75 58-122 124-137 158zm398-920c-10 28-10 76-2 132 3-16 5-31 7-44 2-17 5-31 7-43 1-3 2-5 4-8-1-1-1-3-2-5-1-18-7-29-13-36 0 2-1 3-1 4zm-124 661c88-35 186-63 284-81-10-8-20-15-29-23-49-43-93-103-127-176-19 61-47 126-83 197-15 28-30 56-45 83zm646-16c-5-5-31-24-140-24 49 18 94 28 124 28 9 0 14 0 18-1 0-1-1-2-2-3z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-word {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zM233 768v107h70l164 661h159l128-485c5-15 8-30 10-46 1-8 2-16 2-24h4l3 24c3 14 4 30 9 46l128 485h159l164-661h70V768h-300v107h90l-99 438c-4 16-6 33-7 46l-2 21h-4c0-6-2-14-3-21-3-13-5-30-9-46L825 768H711l-144 545c-4 16-5 33-8 46l-4 21h-4l-2-21c-1-13-3-30-7-46l-99-438h90V768H233z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-powerpoint {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zm-992-234v106h327v-106h-93v-167h137c43 0 82-2 118-15 90-31 146-124 146-233s-54-193-137-228c-38-15-84-19-130-19H416v107h92v555h-92zm353-280H650V882h120c35 0 62 6 83 18 36 21 56 62 56 115 0 56-20 99-62 120-21 10-47 15-78 15z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-excel {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zm-979-234v106h281v-106h-75l103-161c12-19 18-34 21-34h2c1 4 3 7 5 10 4 8 10 14 17 24l107 161h-76v106h291v-106h-68l-192-273 195-282h67V768H828v107h74l-103 159c-12 19-21 34-21 33h-2c-1-4-3-7-5-10-4-7-9-14-17-23L648 875h76V768H434v107h68l189 272-194 283h-68z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-audio {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zM620 850c12 5 20 17 20 30v544c0 13-8 25-20 30-4 1-8 2-12 2-8 0-16-3-23-9l-166-167H288c-18 0-32-14-32-32v-192c0-18 14-32 32-32h131l166-167c10-9 23-12 35-7zm417 689c19 0 37-8 50-24 83-102 129-231 129-363s-46-261-129-363c-22-28-63-32-90-10-28 23-32 63-9 91 65 80 100 178 100 282s-35 202-100 282c-23 28-19 68 9 90 12 10 26 15 40 15zm-211-148c17 0 34-7 47-20 56-60 87-137 87-219s-31-159-87-219c-24-26-65-27-91-3-25 24-27 65-2 91 33 36 52 82 52 131s-19 95-52 131c-25 26-23 67 2 91 13 11 29 17 44 17z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-video {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zM768 768c70 0 128 58 128 128v384c0 70-58 128-128 128H384c-70 0-128-58-128-128V896c0-70 58-128 128-128h384zm492 2c12 5 20 17 20 30v576c0 13-8 25-20 30-4 1-8 2-12 2-8 0-17-3-23-9l-265-266v-90l265-266c6-6 15-9 23-9 4 0 8 1 12 2z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-archive {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M640 384V256H512v128h128zm128 128V384H640v128h128zM640 640V512H512v128h128zm128 128V640H640v128h128zm700-388c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H768v128H640V128H128v1536h1280zM781 943c85 287 107 349 107 349 5 17 8 34 8 52 0 111-108 192-256 192s-256-81-256-192c0-18 3-35 8-52 0 0 21-62 120-396V768h128v128h79c29 0 54 19 62 47zm-141 465c71 0 128-29 128-64s-57-64-128-64-128 29-128 64 57 64 128 64z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-code {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zM480 768c11-14 31-17 45-6l51 38c14 11 17 31 6 45l-182 243 182 243c11 14 8 34-6 45l-51 38c-14 11-34 8-45-6l-226-301c-8-11-8-27 0-38zm802 301c8 11 8 27 0 38l-226 301c-11 14-31 17-45 6l-51-38c-14-11-17-31-6-45l182-243-182-243c-11-14-8-34 6-45l51-38c14-11 34-8 45 6zm-620 461c-18-3-29-20-26-37l138-831c3-18 20-29 37-26l63 10c18 3 29 20 26 37l-138 831c-3 18-20 29-37 26z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file-alt, .fa-file-csv {
+      /* fork-awesome doesn't have csv so we use the text icon */
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280zM384 800c0-18 14-32 32-32h704c18 0 32 14 32 32v64c0 18-14 32-32 32H416c-18 0-32-14-32-32v-64zm736 224c18 0 32 14 32 32v64c0 18-14 32-32 32H416c-18 0-32-14-32-32v-64c0-18 14-32 32-32h704zm0 256c18 0 32 14 32 32v64c0 18-14 32-32 32H416c-18 0-32-14-32-32v-64c0-18 14-32 32-32h704z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		.fa-file {
+			-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1536 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1468 380c37 37 68 111 68 164v1152c0 53-43 96-96 96H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h896c53 0 127 31 164 68zm-444-244v376h376c-6-17-15-34-22-41l-313-313c-7-7-24-16-41-22zm384 1528V640H992c-53 0-96-43-96-96V128H128v1536h1280z'/></svg>");
+      -webkit-mask-repeat: no-repeat;
+		}
+		blockquote {
+			border-left: 4px solid rgb(220, 220, 220);
+			padding-left: 1.2em;
+			margin-left: 0;
+			opacity: 0.7;
+		}
+
+		.jop-tinymce table,
+		table {
+			text-align: left;
+			border-collapse: collapse;
+			border: 1px solid rgb(220, 220, 220);
+			background-color: #ffffff;
+		}
+
+		.jop-tinymce table td, .jop-tinymce table th,
+		table td, th {
+			text-align: left;
+			padding: .5em 1em .5em 1em;
+			font-size: 15;
+			color: #32373F;
+			font-family: 'Avenir Next', 'Avenir', 'Arial', sans-serif;
+		}
+
+		.jop-tinymce table td,
+		table td {
+			border: 1px solid rgb(220, 220, 220);
+		}
+
+		.jop-tinymce table th,
+		table th {
+			border: 1px solid rgb(220, 220, 220);
+			border-bottom: 2px solid rgb(220, 220, 220);
+			background-color: rgb(247, 247, 247);
+		}
+
+		.jop-tinymce table tr:nth-child(even),
+		table tr:nth-child(even) {
+			background-color: rgb(247, 247, 247);
+		}
+
+		.jop-tinymce table tr:hover,
+		table tr:hover {
+			background-color: #e5e5e5;
+		}
+
+		hr {
+			border: none;
+			border-bottom: 2px solid #dddddd;
+		}
+		img {
+			max-width: 100%;
+			height: auto;
+		}
+		
+		.inline-code,
+		.mce-content-body code {
+			border: 1px solid rgb(220, 220, 220);
+			background-color: rgb(243, 243, 243);
+			padding-right: .2em;
+			padding-left: .2em;
+			border-radius: .25em;
+			color: rgb(0,0,0);
+			font-size: .9em;
+		}
+
+		.highlighted-keyword {
+			background-color: #F3B717;
+			color: black;
+		}
+
+		
+	.not-loaded-resource img {
+		width: 1.15em;
+		height: 1.15em;
+		background: white;
+		padding: 2px !important;
+		border-radius: 2px;
+		box-shadow: 0 1px 3px #000000aa;
+	}
+
+	a.not-loaded-resource img {
+		margin-right: .2em;
+	}
+
+	a.not-loaded-resource {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+
+
+		.md-checkbox input[type=checkbox]:checked {
+			opacity: 0.7;
+		}
+
+		.jop-tinymce ul.joplin-checklist .checked,
+		.md-checkbox .checkbox-label-checked {
+			opacity: 0.5;
+		}
+
+		.exported-note {
+			padding: 1em;
+		}
+
+		.joplin-editable .joplin-source {
+			display: none;
+		}
+
+		mark {
+			background: #F7D26E;
+			color: black;
+		}
+
+		/* =============================================== */
+		/* For TinyMCE */
+		/* =============================================== */
+
+		.mce-content-body {
+			/* Note: we give a bit more padding at the bottom, to allow scrolling past the end of the document */
+			padding: 5px 10px 10em 0;
+		}
+
+		/*
+		.mce-content-body code {
+			background-color: transparent;
+		}
+		*/
+
+		.mce-content-body [data-mce-selected=inline-boundary] {
+			background-color: transparent;
+		}
+
+		.mce-content-body .joplin-editable {
+			cursor: pointer !important;
+		}
+
+		.mce-content-body.mce-content-readonly {
+			opacity: 0.5;
+		}
+
+		/* We need that to make sure click events have the A has a target */
+		.katex a span {
+			pointer-events: none;
+		}
+
+		.media-player {
+			width: 100%;
+			margin-top: 10px;
+		}
+
+		.media-player.media-pdf {
+			min-height: 35rem;
+			width: 100%;
+			max-width: 1000px;
+			margin: 0;
+			border: 0;
+			display: block;
+		}
+
+		/* Clear the CODE style if the element is within a joplin-editable block */
+		.mce-content-body .joplin-editable code {
+			border: none;
+			background: none;
+			padding: 0;
+			color: inherit;
+			font-size: inherit;
+		}
+
+		/* To make code blocks horizontally scrollable */
+		/* https://github.com/laurent22/joplin/issues/5740 */
+		pre.hljs {
+			overflow-x: auto;
+		}
+
+		.joplin-table-wrapper{
+			overflow-x: auto;
+			overflow-y: hidden;
+		}
+
+		/* =============================================== */
+		/* For TinyMCE */
+		/* =============================================== */
+
+		@media print {
+			body {
+				height: auto !important;
+			}
+
+			pre {
+				white-space: pre-wrap;
+			}
+
+			.code, .inline-code {
+				border: 1px solid #CBCBCB;
+			}
+
+			#joplin-container-content {
+				/* The height of the content is set dynamically by JavaScript (in updateBodyHeight) to go
+				   around various issues related to scrolling. However when printing we don't want this
+				   fixed size as that would crop the content. So we set it to auto here. "important" is
+				   needed to override the style set by JavaScript at the element-level. */
+				height: auto !important;
+			}
+		}
+	
+
+				/*
+					FOR THE MARKDOWN EDITOR
+				*/
+
+				/* Remove the indentation from the checkboxes at the root of the document
+				   (otherwise they are too far right), but keep it for their children to allow
+				   nested lists. Make sure this value matches the UL margin. */
+
+				li.md-checkbox {
+					list-style-type: none;
+				}
+
+				li.md-checkbox input[type=checkbox] {
+					margin-left: -1.71em;
+					margin-right: 0.7em;
+					position: relative;
+					top: 1px;
+				}
+				
+				ul.joplin-checklist {
+					list-style:none;
+				}
+
+				/*
+					FOR THE RICH TEXT EDITOR
+				*/
+
+				ul.joplin-checklist li::before {
+					content:"\f14a";
+					font-family:"Font Awesome 5 Free";
+					background-size: 16px 16px;
+					pointer-events: all;
+					cursor: pointer;
+					width: 1em;
+					height: 1em;
+					margin-left: -1.3em;
+					position: absolute;
+					color: #32373F;
+				}
+
+				.joplin-checklist li:not(.checked)::before {
+					content:"\f0c8";
+				}
+.mermaid { width: 640px; }
+pre.mermaid[data-processed=true] { white-space: unset; }
+.mermaid-export-graph {
+					opacity: 0;
+					height: 0;
+					z-index: 1;
+					position: relative;
+				} 
+				.joplin-editable:hover .mermaid-export-graph,
+				.joplin-editable .mermaid-export-graph:has(:focus-visible) {
+					opacity: 1;
+				}
+				.mermaid-export-graph > button:hover {
+					background-color: #CBDAF1 !important;
+				}</style><div id="rendered-md"><ul data-is-checklist="1">
+<li class="md-checkbox joplin-checkbox">
+<p><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17377" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:0');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17377&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:0 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17377" for="md-checkbox-17377" class="checkbox-label-unchecked">What is Server?</label></div></p>
+</li>
+<li class="md-checkbox joplin-checkbox">
+<p><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17378" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:1');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17378&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:1 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17378" for="md-checkbox-17378" class="checkbox-label-unchecked">Booting Process</label></div></p>
+</li>
+<li class="md-checkbox joplin-checkbox">
+<p><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17379" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:2');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17379&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:2 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17379" for="md-checkbox-17379" class="checkbox-label-unchecked">What is OS?</label></div></p>
+</li>
+<li class="md-checkbox joplin-checkbox">
+<p><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17380" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:3');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17380&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:3 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17380" for="md-checkbox-17380" class="checkbox-label-unchecked">Why we use Server OS?</label></div></p>
+</li>
+<li class="md-checkbox joplin-checkbox">
+<p><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17381" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:4');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17381&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:4 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17381" for="md-checkbox-17381" class="checkbox-label-unchecked">How to format a Windows Machine</label></div></p>
+<ul data-is-checklist="1">
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17382" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:5');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17382&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:5 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17382" for="md-checkbox-17382" class="checkbox-label-unchecked">Windows 11 Installation</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17383" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:6');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17383&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:6 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17383" for="md-checkbox-17383" class="checkbox-label-unchecked">Disk Management</label></div></li>
+</ul>
+</li>
+<li class="md-checkbox joplin-checkbox">
+<p><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17384" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:7');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17384&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:7 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17384" for="md-checkbox-17384" class="checkbox-label-unchecked">What is Virtualization? and Types of Virtualization</label></div></p>
+</li>
+<li class="md-checkbox joplin-checkbox">
+<p><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17385" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:8');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17385&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:8 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17385" for="md-checkbox-17385" class="checkbox-label-unchecked">Installation of Virtualbox</label></div></p>
+</li>
+<li class="md-checkbox joplin-checkbox">
+<p><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17386" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:9');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17386&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:9 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17386" for="md-checkbox-17386" class="checkbox-label-unchecked">Windows Server Installation</label></div></p>
+<ul data-is-checklist="1">
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17387" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:10');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17387&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:10 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17387" for="md-checkbox-17387" class="checkbox-label-unchecked">Windows Server 2025 - Datacenter (Desktop Experience)</label></div></li>
+</ul>
+</li>
+<li class="md-checkbox joplin-checkbox">
+<p><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17388" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:11');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17388&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:11 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17388" for="md-checkbox-17388" class="checkbox-label-unchecked">Networking</label></div></p>
+<ul data-is-checklist="1">
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17389" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:12');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17389&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:12 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17389" for="md-checkbox-17389" class="checkbox-label-unchecked">Five Elements of Communication</label></div></li>
+</ul>
+</li>
+<li class="md-checkbox joplin-checkbox">
+<p><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17390" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:13');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17390&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:13 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17390" for="md-checkbox-17390" class="checkbox-label-unchecked">IPv4 Addressing</label></div></p>
+<ul data-is-checklist="1">
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17391" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:14');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17391&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:14 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17391" for="md-checkbox-17391" class="checkbox-label-unchecked">Classes of IPv4</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17392" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:15');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17392&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:15 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17392" for="md-checkbox-17392" class="checkbox-label-unchecked">Static IP and Dynamic IP</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17393" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:16');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17393&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:16 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17393" for="md-checkbox-17393" class="checkbox-label-unchecked">Private Network and Public Network</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17394" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:17');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17394&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:17 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17394" for="md-checkbox-17394" class="checkbox-label-unchecked">Public Network, Private Network</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17395" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:18');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17395&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:18 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17395" for="md-checkbox-17395" class="checkbox-label-unchecked">Private Network IP Range</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17396" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:19');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17396&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:19 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17396" for="md-checkbox-17396" class="checkbox-label-unchecked">APIPA</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17397" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:20');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17397&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:20 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17397" for="md-checkbox-17397" class="checkbox-label-unchecked">Loopback</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17398" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:21');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17398&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:21 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17398" for="md-checkbox-17398" class="checkbox-label-unchecked">What is netmask?</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17399" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:22');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17399&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:22 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17399" for="md-checkbox-17399" class="checkbox-label-unchecked">What is Gateway?</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17400" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:23');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17400&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:23 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17400" for="md-checkbox-17400" class="checkbox-label-unchecked">What is DNS Server?</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17401" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:24');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17401&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:24 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17401" for="md-checkbox-17401" class="checkbox-label-unchecked">Purpose of netmask, Gateway and DNS Server is</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17402" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:25');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17402&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:25 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17402" for="md-checkbox-17402" class="checkbox-label-unchecked">Network Address Translation (NAT)</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17403" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:26');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17403&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:26 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17403" for="md-checkbox-17403" class="checkbox-label-unchecked">Classful and classless</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17404" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:27');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17404&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:27 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17404" for="md-checkbox-17404" class="checkbox-label-unchecked">Networking Commands</label></div>
+<ul data-is-checklist="1">
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17405" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:28');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17405&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:28 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17405" for="md-checkbox-17405" class="checkbox-label-unchecked">ping</label></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="md-checkbox joplin-checkbox">
+<p><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17406" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:30');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17406&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:30 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17406" for="md-checkbox-17406" class="checkbox-label-unchecked">Linux History</label></div></p>
+</li>
+<li class="md-checkbox joplin-checkbox">
+<p><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17407" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:31');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17407&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:31 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17407" for="md-checkbox-17407" class="checkbox-label-unchecked">Linux Distributions</label></div></p>
+</li>
+<li class="md-checkbox joplin-checkbox">
+<p><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17408" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:32');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17408&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:32 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17408" for="md-checkbox-17408" class="checkbox-label-unchecked">Package Manager (apt)</label></div></p>
+</li>
+<li class="md-checkbox joplin-checkbox">
+<p><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17409" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:33');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17409&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:33 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17409" for="md-checkbox-17409" class="checkbox-label-unchecked">Service Manager (systemctl)</label></div></p>
+</li>
+<li class="md-checkbox joplin-checkbox">
+<p><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17410" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:34');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17410&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:34 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17410" for="md-checkbox-17410" class="checkbox-label-unchecked">Virtualbox Adapters</label></div></p>
+<ul data-is-checklist="1">
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17411" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:35');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17411&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:35 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17411" for="md-checkbox-17411" class="checkbox-label-unchecked">Bridge</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17412" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:36');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17412&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:36 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17412" for="md-checkbox-17412" class="checkbox-label-unchecked">NAT</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17413" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:37');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17413&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:37 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17413" for="md-checkbox-17413" class="checkbox-label-unchecked">NAT Network</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17414" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:38');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17414&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:38 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17414" for="md-checkbox-17414" class="checkbox-label-unchecked">Internal</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17415" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:39');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17415&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:39 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17415" for="md-checkbox-17415" class="checkbox-label-unchecked">Host Only</label></div></li>
+</ul>
+</li>
+<li class="md-checkbox joplin-checkbox">
+<p><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17416" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:40');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17416&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:40 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17416" for="md-checkbox-17416" class="checkbox-label-unchecked">How to import Virtual Machines?</label></div></p>
+</li>
+<li class="md-checkbox joplin-checkbox">
+<p><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17417" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:41');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17417&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:41 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17417" for="md-checkbox-17417" class="checkbox-label-unchecked">SSH Service</label></div></p>
+</li>
+<li class="md-checkbox joplin-checkbox">
+<p><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17418" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:42');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17418&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:42 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17418" for="md-checkbox-17418" class="checkbox-label-unchecked">PuTTY</label></div></p>
+</li>
+<li class="md-checkbox joplin-checkbox">
+<p><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17419" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:43');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17419&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:43 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17419" for="md-checkbox-17419" class="checkbox-label-unchecked">Login, package manager update</label></div></p>
+</li>
+<li class="md-checkbox joplin-checkbox">
+<p><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17420" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:44');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17420&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:44 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17420" for="md-checkbox-17420" class="checkbox-label-unchecked">nano (editor)</label></div></p>
+</li>
+<li class="md-checkbox joplin-checkbox">
+<p><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17421" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:45');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17421&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:45 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17421" for="md-checkbox-17421" class="checkbox-label-unchecked">/etc/apt/sources.list</label></div></p>
+</li>
+<li class="md-checkbox joplin-checkbox">
+<p><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17422" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:46');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17422&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:46 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17422" for="md-checkbox-17422" class="checkbox-label-unchecked">Commands</label></div></p>
+<ul data-is-checklist="1">
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17423" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:47');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17423&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:47 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17423" for="md-checkbox-17423" class="checkbox-label-unchecked">whoami</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17424" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:48');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17424&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:48 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17424" for="md-checkbox-17424" class="checkbox-label-unchecked">pwd</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17425" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:49');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17425&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:49 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17425" for="md-checkbox-17425" class="checkbox-label-unchecked">hostname</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17426" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:50');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17426&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:50 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17426" for="md-checkbox-17426" class="checkbox-label-unchecked">clear</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17427" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:51');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17427&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:51 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17427" for="md-checkbox-17427" class="checkbox-label-unchecked">history</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17428" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:52');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17428&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:52 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17428" for="md-checkbox-17428" class="checkbox-label-unchecked">su</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17429" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:53');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17429&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:53 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17429" for="md-checkbox-17429" class="checkbox-label-unchecked">exit</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17430" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:54');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17430&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:54 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17430" for="md-checkbox-17430" class="checkbox-label-unchecked">man</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17431" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:55');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17431&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:55 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17431" for="md-checkbox-17431" class="checkbox-label-unchecked">whatis</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17432" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:56');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17432&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:56 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17432" for="md-checkbox-17432" class="checkbox-label-unchecked">ip a</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17433" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:57');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17433&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:57 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17433" for="md-checkbox-17433" class="checkbox-label-unchecked">ls</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17434" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:58');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17434&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:58 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17434" for="md-checkbox-17434" class="checkbox-label-unchecked">cat</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17435" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:59');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17435&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:59 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17435" for="md-checkbox-17435" class="checkbox-label-unchecked">tac</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17436" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:60');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17436&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:60 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17436" for="md-checkbox-17436" class="checkbox-label-unchecked">head</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17437" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:61');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17437&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:61 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17437" for="md-checkbox-17437" class="checkbox-label-unchecked">tail</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17438" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:62');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17438&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:62 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17438" for="md-checkbox-17438" class="checkbox-label-unchecked">wc</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17439" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:63');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17439&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:63 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17439" for="md-checkbox-17439" class="checkbox-label-unchecked">poweroff</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17440" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:64');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17440&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:64 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17440" for="md-checkbox-17440" class="checkbox-label-unchecked">reboot</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17441" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:65');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17441&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:65 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17441" for="md-checkbox-17441" class="checkbox-label-unchecked"># - One line comment</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17442" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:66');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17442&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:66 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17442" for="md-checkbox-17442" class="checkbox-label-unchecked">cd</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17443" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:67');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17443&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:67 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17443" for="md-checkbox-17443" class="checkbox-label-unchecked">which</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17444" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:68');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17444&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:68 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17444" for="md-checkbox-17444" class="checkbox-label-unchecked">mkdir</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17445" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:69');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17445&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:69 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17445" for="md-checkbox-17445" class="checkbox-label-unchecked">rm</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17446" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:70');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17446&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:70 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17446" for="md-checkbox-17446" class="checkbox-label-unchecked">rmdir</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17447" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:71');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17447&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:71 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17447" for="md-checkbox-17447" class="checkbox-label-unchecked">curl</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17448" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:72');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17448&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:72 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17448" for="md-checkbox-17448" class="checkbox-label-unchecked">echo</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17449" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:73');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17449&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:73 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17449" for="md-checkbox-17449" class="checkbox-label-unchecked">chmod</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17450" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:74');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17450&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:74 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17450" for="md-checkbox-17450" class="checkbox-label-unchecked">chown</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17451" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:75');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17451&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:75 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17451" for="md-checkbox-17451" class="checkbox-label-unchecked">chgrp</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17452" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:76');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17452&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:76 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17452" for="md-checkbox-17452" class="checkbox-label-unchecked">adduser</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17453" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:77');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17453&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:77 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17453" for="md-checkbox-17453" class="checkbox-label-unchecked">deluser</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17454" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:78');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17454&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:78 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17454" for="md-checkbox-17454" class="checkbox-label-unchecked">usermod</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17455" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:79');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17455&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:79 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17455" for="md-checkbox-17455" class="checkbox-label-unchecked">addgroup</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17456" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:80');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17456&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:80 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17456" for="md-checkbox-17456" class="checkbox-label-unchecked">delgroup</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17457" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:81');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17457&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:81 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17457" for="md-checkbox-17457" class="checkbox-label-unchecked">links</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17458" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:82');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17458&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:82 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17458" for="md-checkbox-17458" class="checkbox-label-unchecked">curl</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17459" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:83');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17459&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:83 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17459" for="md-checkbox-17459" class="checkbox-label-unchecked">cp</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17460" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:84');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17460&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:84 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17460" for="md-checkbox-17460" class="checkbox-label-unchecked">mv</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17461" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:85');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17461&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:85 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17461" for="md-checkbox-17461" class="checkbox-label-unchecked">sudo</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17462" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:86');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17462&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:86 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17462" for="md-checkbox-17462" class="checkbox-label-unchecked">members</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17463" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:87');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17463&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:87 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17463" for="md-checkbox-17463" class="checkbox-label-unchecked">passwd</label></div></li>
+</ul>
+</li>
+<li class="md-checkbox joplin-checkbox">
+<p><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17464" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:89');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17464&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:89 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17464" for="md-checkbox-17464" class="checkbox-label-unchecked">Network Configuration in Linux</label></div></p>
+<ul data-is-checklist="1">
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17465" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:90');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17465&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:90 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17465" for="md-checkbox-17465" class="checkbox-label-unchecked">/etc/network/interfaces</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17466" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:91');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17466&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:91 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17466" for="md-checkbox-17466" class="checkbox-label-unchecked">How to assign static and dynamic IP address</label></div>
+<ul data-is-checklist="1">
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17467" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:92');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17467&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:92 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17467" for="md-checkbox-17467" class="checkbox-label-unchecked">auto</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17468" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:93');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17468&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:93 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17468" for="md-checkbox-17468" class="checkbox-label-unchecked">allow-hotplug</label></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="md-checkbox joplin-checkbox">
+<p><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17469" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:94');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17469&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:94 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17469" for="md-checkbox-17469" class="checkbox-label-unchecked">FHS (Filesystem Hierarchy Standard)</label></div></p>
+</li>
+<li class="md-checkbox joplin-checkbox">
+<p><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17470" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:95');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17470&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:95 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17470" for="md-checkbox-17470" class="checkbox-label-unchecked">Absolute Path &amp; Relative Path</label></div></p>
+</li>
+<li class="md-checkbox joplin-checkbox">
+<p><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17471" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:96');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17471&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:96 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17471" for="md-checkbox-17471" class="checkbox-label-unchecked">cd .</label></div></p>
+</li>
+<li class="md-checkbox joplin-checkbox">
+<p><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17472" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:97');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17472&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:97 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17472" for="md-checkbox-17472" class="checkbox-label-unchecked">cd ..</label></div></p>
+</li>
+<li class="md-checkbox joplin-checkbox">
+<p><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17473" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:98');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17473&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:98 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17473" for="md-checkbox-17473" class="checkbox-label-unchecked">cd ~</label></div></p>
+</li>
+<li class="md-checkbox joplin-checkbox">
+<p><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17474" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:99');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17474&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:99 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17474" for="md-checkbox-17474" class="checkbox-label-unchecked">$,# -&gt; Terminal</label></div></p>
+</li>
+<li class="md-checkbox joplin-checkbox">
+<p><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17475" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:100');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17475&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:100 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17475" for="md-checkbox-17475" class="checkbox-label-unchecked">cd -</label></div></p>
+</li>
+<li class="md-checkbox joplin-checkbox">
+<p><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17476" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:101');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17476&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:101 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17476" for="md-checkbox-17476" class="checkbox-label-unchecked">Apache2</label></div></p>
+</li>
+<li class="md-checkbox joplin-checkbox">
+<p><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17477" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:102');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17477&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:102 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17477" for="md-checkbox-17477" class="checkbox-label-unchecked">What is sudo? Why we use sudo?</label></div></p>
+<ul data-is-checklist="1">
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17478" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:103');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17478&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:103 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17478" for="md-checkbox-17478" class="checkbox-label-unchecked">sudoers file</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17479" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:104');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17479&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:104 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17479" for="md-checkbox-17479" class="checkbox-label-unchecked">sudo group</label></div></li>
+</ul>
+</li>
+<li class="md-checkbox joplin-checkbox">
+<p><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17480" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:105');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17480&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:105 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17480" for="md-checkbox-17480" class="checkbox-label-unchecked">File Permission</label></div></p>
+<ul data-is-checklist="1">
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17481" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:106');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17481&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:106 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17481" for="md-checkbox-17481" class="checkbox-label-unchecked">What is file permission?</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17482" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:107');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17482&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:107 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17482" for="md-checkbox-17482" class="checkbox-label-unchecked">How we can change the file permission?</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17483" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:108');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17483&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:108 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17483" for="md-checkbox-17483" class="checkbox-label-unchecked">Change File owner, Change File group</label></div></li>
+</ul>
+</li>
+<li class="md-checkbox joplin-checkbox">
+<p><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17484" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:109');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17484&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:109 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17484" for="md-checkbox-17484" class="checkbox-label-unchecked">User &amp; Group Management</label></div></p>
+<ul data-is-checklist="1">
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17485" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:110');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17485&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:110 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17485" for="md-checkbox-17485" class="checkbox-label-unchecked">/etc/group</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17486" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:111');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17486&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:111 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17486" for="md-checkbox-17486" class="checkbox-label-unchecked">/etc/passwd</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17487" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:112');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17487&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:112 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17487" for="md-checkbox-17487" class="checkbox-label-unchecked">Primary Group and Secondary Group</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17488" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:113');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17488&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:113 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17488" for="md-checkbox-17488" class="checkbox-label-unchecked">How to add, delete, modify Users and groups?</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17489" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:114');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17489&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:114 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17489" for="md-checkbox-17489" class="checkbox-label-unchecked">How to modify existing user</label></div>
+<ul data-is-checklist="1">
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17490" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:115');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17490&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:115 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17490" for="md-checkbox-17490" class="checkbox-label-unchecked">shell</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17491" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:116');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17491&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:116 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17491" for="md-checkbox-17491" class="checkbox-label-unchecked">primary group</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17492" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:117');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17492&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:117 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17492" for="md-checkbox-17492" class="checkbox-label-unchecked">Append into secondary group</label></div></li>
+<li class="md-checkbox joplin-checkbox"><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17493" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:118');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17493&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:118 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17493" for="md-checkbox-17493" class="checkbox-label-unchecked">Login Name</label></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="md-checkbox joplin-checkbox">
+<p><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17494" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:119');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17494&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:119 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17494" for="md-checkbox-17494" class="checkbox-label-unchecked">DHCP Server in Linux</label></div></p>
+</li>
+<li class="md-checkbox joplin-checkbox">
+<p><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17495" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:120');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17495&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:120 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17495" for="md-checkbox-17495" class="checkbox-label-unchecked">How to change root password in Linux (if you have forgot the root password through GRUB)</label></div></p>
+</li>
+<li class="md-checkbox joplin-checkbox">
+<p><div class="checkbox-wrapper"><input type="checkbox" id="md-checkbox-17496" onclick="
+		try {
+			if (this.checked) {
+				this.setAttribute('checked', 'checked');
+			} else {
+				this.removeAttribute('checked');
+			}
+
+			postMessage('checkboxclick:unchecked:121');
+			const label = document.getElementById(&quot;cb-label-md-checkbox-17496&quot;);
+			label.classList.remove(this.checked ? 'checkbox-label-unchecked' : 'checkbox-label-checked');
+			label.classList.add(this.checked ? 'checkbox-label-checked' : 'checkbox-label-unchecked');
+		} catch (error) {
+			console.warn('Checkbox unchecked:121 error', error);
+		}
+		return true;
+	"><label id="cb-label-md-checkbox-17496" for="md-checkbox-17496" class="checkbox-label-unchecked">Output Redirection [ &gt; , &gt;&gt;]</label></div></p>
+</li>
+</ul>
+</div></div>
+					</body>
+				</html>
+			
